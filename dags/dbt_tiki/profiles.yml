@@ -1,0 +1,12 @@
+tiki_airflow:
+  target: dev
+  outputs:
+    dev:
+      type: postgres
+      host: "{{ env_var('WIN_POSTGRES_HOST') }}"
+      user: "{{ env_var('WIN_POSTGRES_USER') }}"
+      password: "{{ env_var('WIN_POSTGRES_PASSWORD') }}"
+      port: "{{ env_var('WIN_POSTGRES_PORT') | int }}"
+      dbname: "{{ env_var('WIN_POSTGRES_DB') }}"
+      schema: cleaned
+      threads: 1

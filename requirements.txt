@@ -1,0 +1,8 @@
+pandas
+requests
+sqlalchemy
+psycopg2-binary
+python-dotenv
+apache-airflow-providers-postgres
+dbt-postgres
+dbt-core

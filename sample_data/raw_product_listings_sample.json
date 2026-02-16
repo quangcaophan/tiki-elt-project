@@ -1,0 +1,1769 @@
+{
+  "block": {
+    "code": "tiki_listing",
+    "title": "Tiki Listing",
+    "icon": ""
+  },
+  "data": [
+    {
+      "id": 279112904,
+      "sku": "8740385161745",
+      "name": "Thám Tử Lừng Danh Conan - Tập 107",
+      "url_key": "tham-tu-lung-danh-conan-tap-107-p279112904",
+      "url_path": "tham-tu-lung-danh-conan-tap-107-p279112904.html?spid=279112916",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 25000,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "GOSHO AOYAMA",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "2 Tập"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 0,
+      "discount_rate": 0,
+      "rating_average": 0,
+      "review_count": 0,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/5b/8c/d8/760d6721d631b232b540673126d238a2.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 253,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 279112916,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 92",
+        "value": 92
+      },
+      "tiki_live": null,
+      "original_price": 25000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-bpapqGqX",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 0,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 279112904,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 1,
+            "price": 25000,
+            "quantity_sold": 92,
+            "rating": 0,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 279112916,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/1084",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 92,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": false,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "8481760878074",
+          "number_of_reviews": 0,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 25000,
+          "primary_category_name": "Truyện Tranh, Manga, Comic",
+          "product_rating": 0,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 279112916,
+          "seller_product_sku": "8740385161745",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278997061,
+      "sku": "7170607947689",
+      "name": "Sách Tô Màu Phát Triển Trí Não Bộ Cho Bé 1-5 Tuổi - [Từ Tập 11 - Tập 20] - Chọn Tập Lẻ",
+      "url_key": "sach-to-mau-phat-trien-tri-nao-bo-cho-be-1-5-tuoi-tu-tap-11-tap-20-chon-tap-le-p278997061",
+      "url_path": "sach-to-mau-phat-trien-tri-nao-bo-cho-be-1-5-tuoi-tu-tap-11-tap-20-chon-tap-le-p278997061.html?spid=278997096",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 12000,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "PHẠM NGỌC ĐIỆP",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "9 Tập"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 4000,
+      "discount_rate": 25,
+      "rating_average": 0,
+      "review_count": 0,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/58/04/2a/7c34f91de22d5663ccf26f6dad6be16b.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 252,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278997096,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 149",
+        "value": 149
+      },
+      "tiki_live": null,
+      "original_price": 16000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-allCJhox",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 25,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278997061,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 2,
+            "price": 12000,
+            "quantity_sold": 149,
+            "rating": 0,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278997096,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/393/856",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 149,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "category_l3_name": "Sách thiếu nhi ",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": false,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "4717896301828",
+          "number_of_reviews": 0,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 12000,
+          "primary_category_name": "Tô màu - Luyện chữ  ",
+          "product_rating": 0,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278997096,
+          "seller_product_sku": "7170607947689",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278967562,
+      "sku": "7133308969741",
+      "name": "Monster - Deluxe Edition –  [Chọn Tập Lẻ",
+      "url_key": "monster-deluxe-edition-chon-tap-le-p278967562",
+      "url_path": "monster-deluxe-edition-chon-tap-le-p278967562.html?spid=278706877",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 118750,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "NAOKI URASAWA",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "2 Tập"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 6250,
+      "discount_rate": 5,
+      "rating_average": 5,
+      "review_count": 22,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/e8/15/85/ea72f19277cdf1ac534690e766cc9548.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 253,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278706877,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 465",
+        "value": 465
+      },
+      "tiki_live": null,
+      "original_price": 125000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-lYqOFj1y",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 5,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278967562,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 3,
+            "price": 118750,
+            "quantity_sold": 465,
+            "rating": 5,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278706877,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/1084",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 465,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": false,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "1448024990429",
+          "number_of_reviews": 22,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 118750,
+          "primary_category_name": "Truyện Tranh, Manga, Comic",
+          "product_rating": 5,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278706877,
+          "seller_product_sku": "7133308969741",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278879928,
+      "sku": "5273983117908",
+      "name": "Sách Nếu Như Không Thể Nói Nếu Như & Có Ai Giữ Giùm Những Lãng Quên & Thức Dậy Anh Vẫn Là Mơ - Tái Bản 2025",
+      "url_key": "sach-neu-nhu-khong-the-noi-neu-nhu-co-ai-giu-gium-nhung-lang-quen-thuc-day-anh-van-la-mo-tai-ban-2025-p278879928",
+      "url_path": "sach-neu-nhu-khong-the-noi-neu-nhu-co-ai-giu-gium-nhung-lang-quen-thuc-day-anh-van-la-mo-tai-ban-2025-p278879928.html?spid=278882152",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 258750,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "JUN PHẠM (365 BAND)",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "4 Phân loại"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 86250,
+      "discount_rate": 25,
+      "rating_average": 5,
+      "review_count": 6,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/3d/c9/65/4a8614da2b0cc83b2382323b1e988b01.png",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 251,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278882152,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 299",
+        "value": 299
+      },
+      "tiki_live": null,
+      "original_price": 345000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-ZcyM7UIX",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 25,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278879928,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 4,
+            "price": 258750,
+            "quantity_sold": 299,
+            "rating": 5,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278882152,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/839/845/68000",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 299,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "category_l3_name": "Sách văn học",
+          "category_l4_name": "Truyện ngắn - Tản văn - Tạp Văn",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": true,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "9977089702255",
+          "number_of_reviews": 6,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 258750,
+          "primary_category_name": "Truyện ngắn - Tản văn - Tạp Văn Việt Nam",
+          "product_rating": 5,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278882152,
+          "seller_product_sku": "5273983117908",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278859517,
+      "sku": "3799576913864",
+      "name": "Sách Thương Tiến Tửu",
+      "url_key": "sach-thuong-tien-tuu-tap-7-p278859517",
+      "url_path": "sach-thuong-tien-tuu-tap-7-p278859517.html?spid=278859612",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 119100,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "ĐƯỜNG TỬU KHANH",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "8 Số tập"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 49900,
+      "discount_rate": 30,
+      "rating_average": 5,
+      "review_count": 11,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/3b/24/de/56274ad823f8e5cf3829a203c9a653f2.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 251,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278859612,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 62",
+        "value": 62
+      },
+      "tiki_live": null,
+      "original_price": 169000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-ObJD7BsP",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 30,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278859517,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 5,
+            "price": 119100,
+            "quantity_sold": 62,
+            "rating": 5,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278859612,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/839/1367/67998",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 62,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "category_l3_name": "Sách văn học",
+          "category_l4_name": "Truyện đam mỹ",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": true,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "7480667090516",
+          "number_of_reviews": 11,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 119100,
+          "primary_category_name": "Truyện Chữ Đam Mỹ",
+          "product_rating": 5,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278859612,
+          "seller_product_sku": "3799576913864",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278856619,
+      "sku": "1394957887437",
+      "name": "Sách Cô Bé Hàng Xóm Và Bốn Viên Kẹo (Nguyễn Nhật Ánh) - 2 phiên bản & quà tặng kèm",
+      "url_key": "sach-co-be-hang-xom-va-bon-vien-keo-p278856619",
+      "url_path": "sach-co-be-hang-xom-va-bon-vien-keo-p278856619.html?spid=278856628",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 159000,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "NGUYỄN NHẬT ÁNH",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "2 Loại bìa"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 41000,
+      "discount_rate": 21,
+      "rating_average": 5,
+      "review_count": 42,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/8d/dd/76/b19f69ff9250334be663423b71c2a3ac.png",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 251,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278856628,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 655",
+        "value": 655
+      },
+      "tiki_live": null,
+      "original_price": 200000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-RfGC8IXs",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 21,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278856619,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 6,
+            "price": 159000,
+            "quantity_sold": 655,
+            "rating": 5,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278856628,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/839/844/67996",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 655,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "category_l3_name": "Sách văn học",
+          "category_l4_name": "Tiểu Thuyết",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": true,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "8181521199193",
+          "number_of_reviews": 42,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 159000,
+          "primary_category_name": "Tiểu Thuyết Phương Đông",
+          "product_rating": 5,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278856628,
+          "seller_product_sku": "1394957887437",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278838097,
+      "sku": "2248630575101",
+      "name": "Sách Tính Bản Ác (M. Scott Peck) - Tuệ Tri",
+      "url_key": "sach-tinh-ban-ac-p278838097",
+      "url_path": "sach-tinh-ban-ac-p278838097.html?spid=278838098",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 123000,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "M. SCOTT PECK",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        }
+      ],
+      "discount": 62000,
+      "discount_rate": 34,
+      "rating_average": 4.7,
+      "review_count": 15,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/52/f5/ce/96f411869b083789ff63c10b7e4c657e.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 243,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278838098,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 304",
+        "value": 304
+      },
+      "tiki_live": null,
+      "original_price": 185000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-RMGZ2kiz",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 34,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278838097,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 7,
+            "price": 123000,
+            "quantity_sold": 304,
+            "rating": 4.7,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278838098,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/870/871",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 304,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "category_l3_name": "Sách kỹ năng sống",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": false,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "2662646731788",
+          "number_of_reviews": 15,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 123000,
+          "primary_category_name": "Sách tư duy - Kỹ năng sống",
+          "product_rating": 4.7,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278838098,
+          "seller_product_sku": "2248630575101",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": false
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278790552,
+      "sku": "2809328975128",
+      "name": "Bộ Truyện One Piece [Chọn Tập Lẻ",
+      "url_key": "bo-truyen-one-piece-chon-tap-le-p278790552",
+      "url_path": "bo-truyen-one-piece-chon-tap-le-p278790552.html?spid=278790571",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 28500,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "EIICHIRO ODA",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "101 Tập"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 1500,
+      "discount_rate": 5,
+      "rating_average": 5,
+      "review_count": 94,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/03/e5/1c/f721db9cc59cca9905e62dc92ec78003.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 253,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278790571,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 64",
+        "value": 64
+      },
+      "tiki_live": null,
+      "original_price": 30000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-lqnK7AMr",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 5,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278790552,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 8,
+            "price": 28500,
+            "quantity_sold": 64,
+            "rating": 5,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278790571,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/1084",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 64,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": false,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "5178819868028",
+          "number_of_reviews": 94,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 28500,
+          "primary_category_name": "Truyện Tranh, Manga, Comic",
+          "product_rating": 5,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278790571,
+          "seller_product_sku": "2809328975128",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278785576,
+      "sku": "1508051730219",
+      "name": "Sách Dragon Ball - 7 Viên Ngọc Rồng [Chọn Tập Lẻ",
+      "url_key": "sach-dragon-ball-7-vien-ngoc-rong-chon-tap-le-p278785576",
+      "url_path": "sach-dragon-ball-7-vien-ngoc-rong-chon-tap-le-p278785576.html?spid=278785595",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 28500,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "AKIRA TORIYAMA",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "41 Tập"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 1500,
+      "discount_rate": 5,
+      "rating_average": 4.8,
+      "review_count": 4,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/b8/2b/cd/4b94e1ba0222bc8ec279a07531d66215.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 253,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278785595,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 13",
+        "value": 13
+      },
+      "tiki_live": null,
+      "original_price": 30000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-JqhH7ySm",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 5,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278785576,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 9,
+            "price": 28500,
+            "quantity_sold": 13,
+            "rating": 4.8,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278785595,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/1084",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 13,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": false,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "6844760652808",
+          "number_of_reviews": 4,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 28500,
+          "primary_category_name": "Truyện Tranh, Manga, Comic",
+          "product_rating": 4.8,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278785595,
+          "seller_product_sku": "1508051730219",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    },
+    {
+      "id": 278777861,
+      "sku": "5533022238622",
+      "name": "Bộ Sách Quiz! Khoa Học Kì Thú [Chọn Tập Lẻ",
+      "url_key": "bo-sach-quiz-khoa-hoc-ki-thu-p278777861",
+      "url_path": "bo-sach-quiz-khoa-hoc-ki-thu-p278777861.html?spid=278826436",
+      "type": "",
+      "author_name": "",
+      "book_cover": null,
+      "brand_name": "",
+      "short_description": "",
+      "price": 60000,
+      "list_price": 0,
+      "badges": [],
+      "badges_new": [
+        {
+          "code": "tikinow",
+          "icon": "https://salt.tikicdn.com/ts/tka/a8/31/b6/802e2c99dcce64c67aa2648edb15dd25.png",
+          "icon_height": 16,
+          "icon_width": 32,
+          "placement": "delivery_info",
+          "text": "Giao siêu tốc 2h",
+          "type": "delivery_info_badge"
+        },
+        {
+          "code": "authentic_brand",
+          "icon": "https://salt.tikicdn.com/ts/tka/69/cf/22/1be823299ae34c7ddcd922e73abd4909.png",
+          "icon_height": 20,
+          "icon_width": 89,
+          "placement": "under_product_image",
+          "type": "icon_badge"
+        },
+        {
+          "code": "brand_name",
+          "placement": "above_product_name",
+          "text": "NHIỀU TÁC GIẢ",
+          "text_color": "#808089",
+          "type": "text_above_product_name"
+        },
+        {
+          "arr_text": [
+            {
+              "value": "37 Tập"
+            }
+          ],
+          "code": "variant_count",
+          "placement": "under_rating_v2",
+          "text_color": "#808089",
+          "type": "text_box"
+        }
+      ],
+      "discount": 15000,
+      "discount_rate": 20,
+      "rating_average": 0,
+      "review_count": 0,
+      "order_count": 0,
+      "favourite_count": 0,
+      "thumbnail_url": "https://salt.tikicdn.com/cache/280x280/ts/product/02/09/ec/a6f696ea7f7ccc8afa793333f6c19007.jpg",
+      "thumbnail_width": 280,
+      "thumbnail_height": 280,
+      "freegift_items": [],
+      "has_ebook": false,
+      "inventory_status": "",
+      "is_visible": false,
+      "productset_id": 252,
+      "productset_group_name": "",
+      "seller": null,
+      "is_flower": false,
+      "is_gift_card": false,
+      "inventory": null,
+      "url_attendant_input_form": "",
+      "option_color": [],
+      "stock_item": null,
+      "salable_type": "",
+      "seller_product_id": 278826436,
+      "installment_info": null,
+      "url_review": "",
+      "bundle_deal": false,
+      "quantity_sold": {
+        "text": "Đã bán 122",
+        "value": 122
+      },
+      "tiki_live": null,
+      "original_price": 75000,
+      "shippable": true,
+      "impression_info": [
+        {
+          "impression_id": "thanos-ZoC7I0IIllU2gWdd-KzfEj3tg",
+          "metadata": {
+            "astra_reward": 0,
+            "category": 8322,
+            "delivery_zone": "VN039006001",
+            "discount_rate": 20,
+            "flags": {},
+            "is_ad": 0,
+            "is_astra_plus": 0,
+            "is_official_store": 0,
+            "is_tikinow": 1,
+            "is_tikipro": 0,
+            "is_trusted_store": 0,
+            "mpid": 278777861,
+            "params": {
+              "_v": "filter_revamp",
+              "category": "8322",
+              "limit": "10",
+              "page": "1",
+              "sort": "top_seller",
+              "urlKey": "nha-sach-tiki"
+            },
+            "position": 10,
+            "price": 60000,
+            "quantity_sold": 122,
+            "rating": 0,
+            "request_id": "ZoC7I0IIllU2gWdd",
+            "spid": 278826436,
+            "tiki_verified": 0
+          },
+          "checksum": ""
+        }
+      ],
+      "advertisement": null,
+      "availability": 1,
+      "primary_category_path": "1/2/8322/316/393/853",
+      "product_reco_score": 0,
+      "seller_id": 1,
+      "visible_impression_info": {
+        "amplitude": {
+          "all_time_quantity_sold": 122,
+          "category_l1_name": "Nhà Sách Tiki",
+          "category_l2_name": "Sách tiếng Việt",
+          "category_l3_name": "Sách thiếu nhi ",
+          "deboosted_high_price_diff_position": 0,
+          "earliest_delivery_estimate": 0,
+          "is_authentic": 1,
+          "is_best_offer_available": false,
+          "is_flash_deal": false,
+          "is_freeship_xtra": false,
+          "is_gift_available": false,
+          "is_hero": false,
+          "is_high_price_penalty": false,
+          "is_imported": false,
+          "is_top_brand": false,
+          "joined_strategy_rerank": false,
+          "layout": "grid_view",
+          "master_product_sku": "6635841683218",
+          "number_of_reviews": 0,
+          "order_route": "same_province",
+          "partner_rewards_amount": 0,
+          "price": 60000,
+          "primary_category_name": "Kiến thức - Bách khoa",
+          "product_rating": 0,
+          "search_rank": 0,
+          "seller_id": 1,
+          "seller_product_id": 278826436,
+          "seller_product_sku": "5533022238622",
+          "seller_type": "OFFICIAL_STORE",
+          "standard_delivery_estimate": 0,
+          "tiki_verified": 0,
+          "tikinow_delivery_estimate": 0.21,
+          "tikipro_delivery_estimate": 0,
+          "variant": true
+        }
+      },
+      "badges_v3": [
+        {
+          "code": "product_image_badge",
+          "image": "https://salt.tikicdn.com/ts/upload/c2/bc/6d/ff18cc8968e2bbb43f7ac58efbfafdff.png",
+          "placement": "badge_overlay_product_image",
+          "type": "image_badge"
+        }
+      ]
+    }
+  ],
+  "paging": {
+    "current_page": 1,
+    "from": 1,
+    "last_page": 200,
+    "per_page": 10,
+    "to": 10,
+    "total": 2000
+  },
+  "filters": [],
+  "amplitude": {
+    "number_of_brand_store_ad": "0",
+    "number_of_display_ad": "0",
+    "number_of_sponsored_product_ad": "0",
+    "search_experiment_variant": "",
+    "search_location": "VN039006001",
+    "search_request": "http://tiki.vn/full/v2/products?_v=filter_revamp&category=8322&category=8322&limit=10&limit=10&page=1&page=1&sort=top_seller&sort=top_seller&urlKey=nha-sach-tiki",
+    "selected_sort_option": "top_seller",
+    "seller_product_sku": "8740385161745,7170607947689,7133308969741,5273983117908,3799576913864,1394957887437,2248630575101,2809328975128,1508051730219,5533022238622",
+    "user_strategy": "filter_revamp"
+  },
+  "sort_options": [
+    {
+      "display_value": "Phổ biến",
+      "query_value": "default",
+      "selected": false
+    },
+    {
+      "display_value": "Bán chạy",
+      "query_value": "top_seller",
+      "selected": true
+    },
+    {
+      "display_value": "Hàng mới",
+      "query_value": "newest",
+      "selected": false
+    },
+    {
+      "display_value": "Giá thấp đến cao",
+      "query_value": "price,asc",
+      "selected": false
+    },
+    {
+      "display_value": "Giá cao đến thấp",
+      "query_value": "price,desc",
+      "selected": false
+    }
+  ],
+  "widgets": [],
+  "experiment_variants": {},
+  "model_debug": null,
+  "trace_id": "ZoC7I0IIllU2gWdd",
+  "items": []
+}
