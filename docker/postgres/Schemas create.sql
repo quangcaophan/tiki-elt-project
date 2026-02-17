@@ -1,170 +1,226 @@
--- create Schemas
+-- ============================================================
+-- TIKI ETL PIPELINE - DATABASE SCHEMA
+-- ============================================================
+-- Schemas: raw (landing) → cleaned (dbt transformed) → dim (future)
+-- ============================================================
+
 CREATE SCHEMA IF NOT EXISTS raw;
 CREATE SCHEMA IF NOT EXISTS cleaned;
 CREATE SCHEMA IF NOT EXISTS dim;
 
--- RAW: raw_categories
+
+-- ============================================================
+-- RAW LAYER  (landing zone, lưu JSON gốc từ API)
+-- ============================================================
+
+-- raw.raw_categories
 CREATE TABLE IF NOT EXISTS raw.raw_categories (
-    categories_id TEXT PRIMARY KEY,
-    extract_time TIMESTAMP,
-    raw_response JSONB
+    categories_id   TEXT        NOT NULL,
+    extract_time    TIMESTAMP   NOT NULL,
+    raw_response    JSONB,
+    PRIMARY KEY (categories_id)
 );
 
--- RAW: raw_product_listings
+-- raw.raw_product_listings
 CREATE TABLE IF NOT EXISTS raw.raw_product_listings (
-    category_id TEXT,
-    extract_time TIMESTAMP,
-    product_id TEXT,
-    raw_response JSONB,
-    PRIMARY KEY (product_id, extract_time)
+    category_id     TEXT        NOT NULL,
+    page            INTEGER     NOT NULL,
+    extract_time    TIMESTAMP   NOT NULL,
+    raw_response    JSONB,
+    PRIMARY KEY (category_id, page)
 );
 
--- RAW: raw_product_details
-CREATE TABLE IF NOT EXISTS raw.raw_product_details (
-    product_id TEXT PRIMARY KEY,
-    extract_time TIMESTAMP,
-    raw_response JSONB
-);
-
--- RAW: raw_reviews
-CREATE TABLE IF NOT EXISTS raw.raw_reviews (
-    product_id TEXT,
-    review_id TEXT,
-    extract_time TIMESTAMP,
-    raw_response JSONB,
-    PRIMARY KEY (review_id, extract_time)
-);
-
--- RAW: raw_sellers
+-- raw.raw_sellers
 CREATE TABLE IF NOT EXISTS raw.raw_sellers (
-    seller_id TEXT PRIMARY KEY, -- ID của seller
-    extract_time TIMESTAMP,
-    raw_response JSONB
+    seller_id       TEXT        NOT NULL,
+    extract_time    TIMESTAMP   NOT NULL,
+    raw_response    JSONB,
+    PRIMARY KEY (seller_id)
+);
+
+-- raw.raw_reviews
+CREATE TABLE IF NOT EXISTS raw.raw_reviews (
+    spid            BIGINT      NOT NULL,
+    product_id      BIGINT      NOT NULL,
+    seller_id       INTEGER     NOT NULL,
+    page            INTEGER     NOT NULL,
+    extract_time    TIMESTAMP   NOT NULL,
+    raw_response    JSONB,
+    PRIMARY KEY (spid, page)
 );
 
 
+-- ============================================================
+-- CLEANED LAYER  (output của dbt, đã transform từ JSON)
+-- ============================================================
 
--- 1. Bảng Categories
+-- cleaned.categories
 CREATE TABLE IF NOT EXISTS cleaned.categories (
-    category_id BIGINT PRIMARY KEY,
-    parent_id BIGINT,
-    name VARCHAR(255),
-    level INTEGER,
-    is_leaf BOOLEAN,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    category_id         INTEGER         NOT NULL,
+    parent_id           INTEGER,
+    name                VARCHAR(255),
+    url_key             VARCHAR(500),
+    url_path            TEXT,
+    level               INTEGER,
+    status              VARCHAR(50),
+    is_leaf             BOOLEAN,
+    product_count       INTEGER,
+    thumbnail_url       TEXT,
+    meta_title          TEXT,
+    meta_description    TEXT,
+    PRIMARY KEY (category_id),
+    CONSTRAINT fk_category_parent
+        FOREIGN KEY (parent_id) REFERENCES cleaned.categories (category_id)
+        ON DELETE SET NULL
 );
 
--- 2. Bảng Sellers
+-- cleaned.sellers
 CREATE TABLE IF NOT EXISTS cleaned.sellers (
-    seller_id BIGINT PRIMARY KEY,
-    store_id BIGINT,
-    name VARCHAR(255),
-    url TEXT,
-    logo TEXT,
-    avg_rating_point NUMERIC(3, 2),
-    review_count INTEGER,
-    total_follower INTEGER,
-    is_official BOOLEAN,
-    days_since_joined INTEGER,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    seller_id           INTEGER         NOT NULL,
+    store_id            INTEGER,
+    name                VARCHAR(255),
+    url                 TEXT,
+    logo                TEXT,
+    avg_rating_point    NUMERIC(3, 2),
+    review_count        INTEGER,
+    total_follower      INTEGER,
+    is_official         BOOLEAN,
+    days_since_joined   INTEGER,
+    extract_time        TIMESTAMP,
+    PRIMARY KEY (seller_id)
 );
 
--- 3. Bảng Products (Sử dụng spid làm PK để phục vụ Market Insight)
+-- cleaned.products
 CREATE TABLE IF NOT EXISTS cleaned.products (
-    spid BIGINT PRIMARY KEY, -- Seller Product ID
-    product_id BIGINT NOT NULL, -- Master Product ID
-    seller_id BIGINT NOT NULL, -- Liên kết với bảng sellers
-    name VARCHAR(500),
-    sku BIGINT,
-    url_key VARCHAR(500),
-    url_path TEXT,
-    short_description TEXT,
-    price NUMERIC(15, 2),
-    list_price NUMERIC(15, 2),
-    original_price NUMERIC(15, 2),
-    discount NUMERIC(15, 2),
-    discount_rate NUMERIC(5, 2),
-    rating_average NUMERIC(3, 2),
-    review_count INTEGER,
-    all_time_quantity_sold INTEGER,
-    inventory_status VARCHAR(50),
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_seller FOREIGN KEY (seller_id) REFERENCES cleaned.sellers(seller_id)
+    spid                    BIGINT          NOT NULL,
+    product_id              BIGINT          NOT NULL,
+    seller_id               INTEGER         NOT NULL,
+    name                    VARCHAR(500),
+    sku                     BIGINT,
+    url_key                 VARCHAR(500),
+    url_path                TEXT,
+    short_description       TEXT,
+    price                   NUMERIC(15, 2),
+    list_price              NUMERIC(15, 2),
+    original_price          NUMERIC(15, 2),
+    discount                NUMERIC(15, 2),
+    discount_rate           NUMERIC(5, 2),
+    rating_average          NUMERIC(3, 2),
+    review_count            INTEGER,
+    order_count             INTEGER,
+    favourite_count         INTEGER,
+    thumbnail_url           TEXT,
+    has_ebook               BOOLEAN,
+    inventory_status        VARCHAR(50),
+    productset_group_name   VARCHAR(255),
+    all_time_quantity_sold  INTEGER,
+    meta_title              TEXT,
+    meta_description        TEXT,
+    last_updated            TIMESTAMP       DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY (spid),
+    CONSTRAINT fk_product_seller
+        FOREIGN KEY (seller_id) REFERENCES cleaned.sellers (seller_id)
+        ON DELETE RESTRICT
 );
 
--- 4. Bảng trung gian Product - Categories
-CREATE TABLE IF NOT EXISTS cleaned.product_categories (
-    spid BIGINT NOT NULL,
-    category_id BIGINT NOT NULL,
-    PRIMARY KEY (spid, category_id),
-    CONSTRAINT fk_product FOREIGN KEY (spid) REFERENCES cleaned.products(spid),
-    CONSTRAINT fk_category FOREIGN KEY (category_id) REFERENCES cleaned.categories(category_id)
-);
-
--- 5. Bảng Reviews
+-- cleaned.reviews
 CREATE TABLE IF NOT EXISTS cleaned.reviews (
-    review_id BIGINT PRIMARY KEY,
-    spid BIGINT NOT NULL, -- Liên kết trực tiếp với sản phẩm của nhà bán
-    customer_id BIGINT,
-    title TEXT,
-    content TEXT,
-    rating INTEGER,
-    thank_count INTEGER,
-    created_at TIMESTAMP,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    CONSTRAINT fk_product_review FOREIGN KEY (spid) REFERENCES cleaned.products(spid)
+    review_id       BIGINT          NOT NULL,
+    product_id      BIGINT          NOT NULL,
+    spid            BIGINT          NOT NULL,
+    seller_id       INTEGER         NOT NULL,
+    user_id         BIGINT,
+    user_name       VARCHAR(255),
+    rating          INTEGER,
+    title           TEXT,
+    content         TEXT,
+    purchased_at    TIMESTAMP,
+    variant         TEXT,
+    thank_count     INTEGER,
+    PRIMARY KEY (review_id),
+    CONSTRAINT fk_review_product
+        FOREIGN KEY (spid) REFERENCES cleaned.products (spid)
+        ON DELETE RESTRICT,
+    CONSTRAINT fk_review_seller
+        FOREIGN KEY (seller_id) REFERENCES cleaned.sellers (seller_id)
+        ON DELETE RESTRICT
 );
 
--- 6. Bảng Review Images
-CREATE TABLE IF NOT EXISTS cleaned.review_images (
-    image_id BIGINT PRIMARY KEY,
-    review_id BIGINT NOT NULL,
-    full_path TEXT,
-    CONSTRAINT fk_review_image FOREIGN KEY (review_id) REFERENCES cleaned.reviews(review_id)
+-- cleaned.product_categories  (bảng junction nhiều-nhiều)
+CREATE TABLE IF NOT EXISTS cleaned.product_categories (
+    spid            BIGINT      NOT NULL,
+    category_id     INTEGER     NOT NULL,
+    PRIMARY KEY (spid, category_id),
+    CONSTRAINT fk_pc_product
+        FOREIGN KEY (spid) REFERENCES cleaned.products (spid)
+        ON DELETE CASCADE,
+    CONSTRAINT fk_pc_category
+        FOREIGN KEY (category_id) REFERENCES cleaned.categories (category_id)
+        ON DELETE CASCADE
 );
 
 
+-- ============================================================
+-- DIM LAYER  (future — star schema cho analytics)
+-- ============================================================
 
--- DIM: dim_categories
 CREATE TABLE IF NOT EXISTS dim.dim_categories (
-    category_key SERIAL PRIMARY KEY, -- Surrogate key
-    category_id TEXT UNIQUE NOT NULL,
-    category_name VARCHAR(255),
-    parent_category_id TEXT,
-    category_level INTEGER,
-    -- ... các thuộc tính khác từ categories
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    category_key        SERIAL          PRIMARY KEY,
+    category_id         INTEGER         UNIQUE NOT NULL,
+    category_name       VARCHAR(255),
+    parent_category_id  INTEGER,
+    category_level      INTEGER,
+    url_path            TEXT,
+    is_leaf             BOOLEAN,
+    last_updated        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP
 );
 
--- DIM: dim_products
-CREATE TABLE IF NOT EXISTS dim.dim_products (
-    product_key SERIAL PRIMARY KEY, -- Surrogate key
-    product_id TEXT UNIQUE NOT NULL,
-    product_name VARCHAR(500),
-    brand_name VARCHAR(255),
-    author_name VARCHAR(255), -- Nếu là sách
-    -- ... các thuộc tính khác từ products
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-);
-
--- DIM: dim_sellers
 CREATE TABLE IF NOT EXISTS dim.dim_sellers (
-    seller_key SERIAL PRIMARY KEY, -- Surrogate key
-    seller_id TEXT UNIQUE NOT NULL,
-    seller_name VARCHAR(255),
-    is_official BOOLEAN,
-    -- ... các thuộc tính khác từ sellers
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+    seller_key          SERIAL          PRIMARY KEY,
+    seller_id           INTEGER         UNIQUE NOT NULL,
+    seller_name         VARCHAR(255),
+    is_official         BOOLEAN,
+    avg_rating_point    NUMERIC(3, 2),
+    total_follower      INTEGER,
+    days_since_joined   INTEGER,
+    last_updated        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP
 );
 
--- DIM: dim_customers (từ reviews)
-CREATE TABLE IF NOT EXISTS dim.dim_customers (
-    customer_key SERIAL PRIMARY KEY,
-    customer_id TEXT UNIQUE NOT NULL,
-    customer_name VARCHAR(255),
-    region VARCHAR(255),
-    joined_time TIMESTAMP,
-    total_review INTEGER,
-    total_thank INTEGER,
-    last_updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+CREATE TABLE IF NOT EXISTS dim.dim_products (
+    product_key         SERIAL          PRIMARY KEY,
+    product_id          BIGINT          UNIQUE NOT NULL,    -- master product
+    product_name        VARCHAR(500),
+    url_key             VARCHAR(500),
+    has_ebook           BOOLEAN,
+    last_updated        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP
 );
+
+CREATE TABLE IF NOT EXISTS dim.dim_customers (
+    customer_key        SERIAL          PRIMARY KEY,
+    user_id             BIGINT          UNIQUE NOT NULL,
+    user_name           VARCHAR(255),
+    last_updated        TIMESTAMP       DEFAULT CURRENT_TIMESTAMP
+);
+
+
+-- ============================================================
+-- INDEXES  (tăng tốc query thường dùng)
+-- ============================================================
+
+-- categories: lookup theo parent (cho recursive query)
+CREATE INDEX IF NOT EXISTS idx_categories_parent_id
+    ON cleaned.categories (parent_id);
+
+-- products: lookup theo product_id (master) và seller_id
+CREATE INDEX IF NOT EXISTS idx_products_product_id
+    ON cleaned.products (product_id);
+CREATE INDEX IF NOT EXISTS idx_products_seller_id
+    ON cleaned.products (seller_id);
+
+-- reviews: lookup theo product và seller
+CREATE INDEX IF NOT EXISTS idx_reviews_product_id
+    ON cleaned.reviews (product_id);
+CREATE INDEX IF NOT EXISTS idx_reviews_spid
+    ON cleaned.reviews (spid);
+CREATE INDEX IF NOT EXISTS idx_reviews_seller_id
+    ON cleaned.reviews (seller_id);

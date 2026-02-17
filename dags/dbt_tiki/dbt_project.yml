@@ -17,4 +17,4 @@ clean-targets:
 
 models:
   tiki_airflow:
-    +materialized: table
+    +materialized: incremental

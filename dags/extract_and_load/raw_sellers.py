@@ -14,15 +14,13 @@ import plugins.utils as util
 
 # ---------------------------------------------------------------- #
 
-raw_logs_sellers_list = [] 
 BASE_URL = "https://api.tiki.vn/product-detail/v2/widgets/seller"
 
-
 query = 'select distinct seller_id from cleaned.products'
-list_store = db.query_db(query)
 
 def fetch_seller():
-    global raw_logs_sellers_list 
+    raw_logs_sellers_list = [] 
+    list_store = db.query_db(query)
     
     total_sellers = len(list_store)
     print(f"Total sellers to crawl: {total_sellers}")

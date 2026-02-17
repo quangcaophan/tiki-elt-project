@@ -12,10 +12,7 @@ import plugins.db as db
 import plugins.utils as util
 # ---------------------------------------------------------------- #
 
-raw_logs_product_listing_list = [] 
 BASE_URL = "https://tiki.vn/api/personalish/v1/blocks/listings"
-
-# query = 'select distinct category_id as id from cleaned.categories'
 
 # Only crawl for Vietnamese book to reduce wait time
 specific_cate = """
@@ -31,10 +28,9 @@ WITH RECURSIVE CategoryTree AS (
 select category_id as id from categorytree
 """
 
-categories_id = db.query_db(specific_cate)
-
 def fetch_products(batch_size=50):
-    global raw_logs_product_listing_list 
+    raw_logs_product_listing_list = [] 
+    categories_id = db.query_db(specific_cate)
     total_categories = len(categories_id)
     
     for index, row in categories_id.iterrows(): 

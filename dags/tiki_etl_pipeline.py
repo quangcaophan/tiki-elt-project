@@ -1,7 +1,5 @@
-import os
-import sys
 import pandas as pd
-from datetime import date, datetime, timedelta
+from datetime import datetime, timedelta
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
@@ -23,25 +21,26 @@ DBT_PROJECT_DIR = "/opt/airflow/dags/dbt_tiki"
 # --------------- Categories --------------- #
 
 def run_etl_category():
-    from extract_and_load.raw_catogories import ROOT_ID, fetch_categories, raw_json_list
-    print(f"Starting crawl from Root ID: {ROOT_ID}")
-    raw_json_list.clear()
-
-    fetch_categories(ROOT_ID)
-
+    from extract_and_load.raw_catogories import ROOT_ID, fetch_categories
+    raw_json_list = fetch_categories(ROOT_ID)
+    
     if not raw_json_list:
         print("No data fetched.")
         return
     
-    db.push_df_to_db(df=pd.DataFrame(raw_json_list),table_name="raw_categories",schema="raw",primary_key="categories_id",)
-
+    db.push_df_to_db(
+        df=pd.DataFrame(raw_json_list),
+        table_name="raw_categories",
+        schema="raw",
+        primary_key="category_id",
+    )
 
 with DAG(
     "tiki_categories_etl",
     default_args=default_args,
     schedule_interval="@weekly",
     catchup=False,
-) as dag:
+) as categories_dag:
     
     crawl_and_load_categories_task = PythonOperator(
         task_id="crawl_tiki_categories", python_callable=run_etl_category
@@ -49,7 +48,7 @@ with DAG(
 
     dbt_run_categories_task = BashOperator(
         task_id="dbt_transform_categories",
-        bash_command=f"dbt run --project-dir {DBT_PROJECT_DIR} --profiles-dir . select categories",
+        bash_command=f"cd {DBT_PROJECT_DIR} && dbt run --profiles-dir . --select categories",
     )
 
     crawl_and_load_categories_task >> dbt_run_categories_task
@@ -58,8 +57,7 @@ with DAG(
 # --------------- Products --------------- #
 
 def run_etl_products():
-    from extract_and_load.raw_products import fetch_products,raw_logs_product_listing_list
-    raw_logs_product_listing_list.clear()
+    from extract_and_load.raw_products import fetch_products
     fetch_products(batch_size=100) 
 
 with DAG(
@@ -67,7 +65,7 @@ with DAG(
     default_args=default_args,
     schedule_interval="@daily",
     catchup=False,
-) as dag:
+) as products_dag:
     
     crawl_and_load_products_task = PythonOperator(
         task_id="crawl_tiki_products", 
@@ -85,8 +83,7 @@ with DAG(
 # --------------- Sellers --------------- #
 
 def run_etl_sellers():
-    from extract_and_load.raw_sellers import fetch_seller,raw_logs_sellers_list
-    raw_logs_sellers_list.clear()
+    from extract_and_load.raw_sellers import fetch_seller
     fetch_seller() 
 
 with DAG(
@@ -94,7 +91,7 @@ with DAG(
     default_args=default_args,
     schedule_interval="@weekly",
     catchup=False,
-) as dag:
+) as sellers_dag:
     
     crawl_and_load_seller_task = PythonOperator(
         task_id="crawl_tiki_seller", 
@@ -111,16 +108,15 @@ with DAG(
 # --------------- reviews --------------- #
 
 def run_etl_reviews():
-    from extract_and_load.raw_reviews import fetch_reviews,raw_logs_reviews_list
-    raw_logs_reviews_list.clear()
-    fetch_reviews() 
+    from extract_and_load.raw_reviews import fetch_reviews
+    fetch_reviews(batch_size=100)
 
 with DAG(
     "tiki_review_etl",
     default_args=default_args,
     schedule_interval="@daily",
     catchup=False,
-) as dag:
+) as reviews_dag:
     
     crawl_and_load_review_task = PythonOperator(
         task_id="crawl_tiki_review", 

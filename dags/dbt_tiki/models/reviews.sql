@@ -1,30 +1,45 @@
 {{ config(
-    materialized='table',
+    materialized='incremental',
+    unique_key='review_id',
+    on_schema_change='sync_all_columns',
+    pre_hook=[
+        "ALTER TABLE IF EXISTS {{ this }} DROP CONSTRAINT IF EXISTS fk_review_product",
+        "ALTER TABLE IF EXISTS {{ this }} DROP CONSTRAINT IF EXISTS fk_review_seller"
+    ],
     post_hook=[
-      'ALTER TABLE {{ this }} ADD PRIMARY KEY (review_id)'
+        """
+        DO $$ BEGIN
+            IF NOT EXISTS (
+                SELECT 1 FROM pg_constraint c
+                JOIN pg_class t     ON t.oid = c.conrelid
+                JOIN pg_namespace n ON n.oid = t.relnamespace
+                WHERE c.contype = 'p'
+                  AND t.relname  = 'reviews'
+                  AND n.nspname  = 'cleaned'
+            ) THEN
+                ALTER TABLE {{ this }} ADD PRIMARY KEY (review_id);
+            END IF;
+        END $$;
+        """
     ]
 ) }}
 
-SELECT 
-    (r->>'id')::BIGINT as review_id,
-    (r->>'product_id')::BIGINT as product_id,
-    (r->>'spid')::BIGINT as spid,
-    (r->'seller'->>'id')::INT as seller_id,
-    (r->'created_by'->>'id')::BIGINT as user_id,
-    (r->'created_by'->>'name') as user_name,
-    (r->>'rating')::INT as rating,
-    (r->>'title') as title,
-    (r->>'content') as content,
-    to_timestamp((r->'created_by'->>'purchased_at')::BIGINT) as purchased_at,
-    (r->'product_attributes'->>0) as variant, -- Lấy thông tin variant (Tập 1, Tập 2...)
-    (r->>'thank_count')::INT as thank_count
-FROM {{ source('raw', 'raw_reviews') }}, lateral jsonb_array_elements(raw_response->'data') AS r
+SELECT
+    (r->>'id')::BIGINT                                          AS review_id,
+    (r->>'product_id')::BIGINT                                  AS product_id,
+    (r->>'spid')::BIGINT                                        AS spid,
+    (r->'seller'->>'id')::INT                                   AS seller_id,
+    (r->'created_by'->>'id')::BIGINT                            AS user_id,
+    (r->'created_by'->>'name')                                  AS user_name,
+    (r->>'rating')::INT                                         AS rating,
+    (r->>'title')                                               AS title,
+    (r->>'content')                                             AS content,
+    to_timestamp((r->'created_by'->>'purchased_at')::BIGINT)    AS purchased_at,
+    (r->'product_attributes'->>0)                               AS variant,
+    (r->>'thank_count')::INT                                    AS thank_count
+FROM {{ source('raw', 'raw_reviews') }},
+LATERAL jsonb_array_elements(raw_response->'data') AS r
 
--- image
--- SELECT
---     (r->>'id')::BIGINT as review_id,
---     (img->>'id')::BIGINT as img_id,
---     (img->>'full_path') as img_url
--- FROM raw_reviews, 
---      jsonb_array_elements(raw_response->'data') AS r,
---      jsonb_array_elements(r->'images') AS img
+{% if is_incremental() %}
+    WHERE (r->>'id')::BIGINT NOT IN (SELECT review_id FROM {{ this }})
+{% endif %}

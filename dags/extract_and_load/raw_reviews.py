@@ -12,15 +12,14 @@ import plugins.db as db
 import plugins.utils as util
 # ---------------------------------------------------------------- #
 
-raw_logs_reviews_list = [] 
 BASE_URL = "https://tiki.vn/api/v2/reviews"
 
 query = 'select product_id,spid,seller_id from cleaned.products where review_count != 0'
-data = db.query_db(query)
 
 def fetch_reviews(batch_size=50):
+    data = db.query_db(query)
     total_id = len(data)
-    global raw_logs_reviews_list 
+    raw_logs_reviews_list = [] 
     
     for index, row in data.iterrows(): 
         product_id = row['product_id']
