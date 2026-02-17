@@ -1,17 +1,13 @@
 import os
 import sys
+import pandas as pd
 from datetime import date, datetime, timedelta
 
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from airflow.operators.bash import BashOperator
 
-PARENT_FOLDER = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if PARENT_FOLDER not in sys.path:
-    sys.path.append(PARENT_FOLDER)
-
-import pandas as pd
-import plugins.db as db
+from plugins import db
 
 default_args = {
     "owner": "quang",
@@ -25,9 +21,9 @@ default_args = {
 DBT_PROJECT_DIR = "/opt/airflow/dags/dbt_tiki"
 
 # --------------- Categories --------------- #
-from extract_and_load.raw_catogories import ROOT_ID, fetch_categories, raw_json_list
 
 def run_etl_category():
+    from extract_and_load.raw_catogories import ROOT_ID, fetch_categories, raw_json_list
     print(f"Starting crawl from Root ID: {ROOT_ID}")
     raw_json_list.clear()
 
@@ -60,9 +56,9 @@ with DAG(
 
 
 # --------------- Products --------------- #
-from extract_and_load.raw_products import fetch_products,raw_logs_product_listing_list
 
 def run_etl_products():
+    from extract_and_load.raw_products import fetch_products,raw_logs_product_listing_list
     raw_logs_product_listing_list.clear()
     fetch_products(batch_size=100) 
 
@@ -87,9 +83,9 @@ with DAG(
 
 
 # --------------- Sellers --------------- #
-from extract_and_load.raw_sellers import fetch_seller,raw_logs_sellers_list
 
 def run_etl_sellers():
+    from extract_and_load.raw_sellers import fetch_seller,raw_logs_sellers_list
     raw_logs_sellers_list.clear()
     fetch_seller() 
 
@@ -113,9 +109,9 @@ with DAG(
     crawl_and_load_seller_task >> dbt_run_seller_task
 
 # --------------- reviews --------------- #
-from extract_and_load.raw_reviews import fetch_reviews,raw_logs_reviews_list
 
 def run_etl_reviews():
+    from extract_and_load.raw_reviews import fetch_reviews,raw_logs_reviews_list
     raw_logs_reviews_list.clear()
     fetch_reviews() 
 
