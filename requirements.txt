@@ -6,3 +6,4 @@ python-dotenv
 apache-airflow-providers-postgres
 dbt-postgres
 dbt-core
+streamlit

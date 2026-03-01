@@ -1,75 +1,116 @@
-import os 
+import os
 import sys
-import pandas as pd
-import time
+import logging
 from datetime import datetime
-import random
+from queue import Queue
+from threading import Thread
+
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 if root_path not in sys.path:
     sys.path.append(root_path)
 
 import plugins.db as db
 import plugins.utils as util
-# ---------------------------------------------------------------- #
+
+logger = logging.getLogger(__name__)
 
 BASE_URL = "https://tiki.vn/api/v2/reviews"
+QUERY    = "SELECT product_id, spid, seller_id FROM cleaned.products WHERE review_count != 0"
 
-query = 'select product_id,spid,seller_id from cleaned.products where review_count != 0'
+# ---------------------------------------------------------------- #
 
-def fetch_reviews(batch_size=50):
-    data = db.query_db(query)
-    total_id = len(data)
-    raw_logs_reviews_list = [] 
-    
-    for index, row in data.iterrows(): 
-        product_id = row['product_id']
-        spid = row['spid']
-        seller_id = row['seller_id']
-        print(f"{index + 1}/{total_id} Started crawling review for product {product_id}")
-        
-        page = 1
-        while True:
-            params = {
-                'page': page,
-                'spid': spid,
-                'product_id': product_id,
-                'seller_id': seller_id
-            }
-            try:
-                response_json = util.get_tiki_api(BASE_URL, params)
+def _fetch_one_page(task: dict):
+    params = {
+        "page":       task["page"],
+        "spid":       task["spid"],
+        "product_id": task["product_id"],
+        "seller_id":  task["seller_id"],
+    }
+    response_json = util.get_tiki_api(BASE_URL, params)
+    if not response_json or not response_json.get("data"):
+        return None
+    return {
+        "spid":         task["spid"],
+        "product_id":   task["product_id"],
+        "seller_id":    task["seller_id"],
+        "page":         task["page"],
+        "extract_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "raw_response": response_json
+    }
 
-                if not response_json or not response_json.get("data") or len(response_json.get("data")) == 0:
-                    break
 
-                raw_logs_reviews_list.append({
-                    "spid": spid,
-                    "product_id": product_id,
-                    "seller_id": seller_id,
-                    "page": page,
-                    "extract_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "raw_response": response_json
-                })
+def fetch_reviews(batch_size: int = 200, max_workers: int = 5):
+    """
+    Crawl reviews với producer-consumer pattern:
+    - Fetcher threads (concurrent) → Queue → DB writer thread
+    - Không tích lũy toàn bộ kết quả trong RAM
+    - Push DB liên tục trong lúc fetch → an toàn với dataset lớn
+    """
+    data = db.query_db(QUERY)
+    if data.empty:
+        logger.warning("No products found, aborting.")
+        return
 
-                print(f"   Scraped page {page} ({len(response_json.get('data'))} items)")
+    logger.info("Found %d products to crawl reviews", len(data))
 
-                if len(raw_logs_reviews_list) >= batch_size:
-                    print(f"   [Batch Push] Pushing {len(raw_logs_reviews_list)} logs to DB...")
-                    df_to_push = pd.DataFrame(raw_logs_reviews_list)
-                    db.push_df_to_db(df_to_push, "raw_reviews", schema="raw", primary_key=["spid", "page"])
-                    raw_logs_reviews_list.clear()
-                    del df_to_push
+    # ── Bước 1: Probe page 1 song song để biết total pages ──
+    probe_tasks = [
+        {"product_id": row["product_id"], "spid": row["spid"],
+         "seller_id": row["seller_id"], "page": 1}
+        for _, row in data.iterrows()
+    ]
 
-                page += 1
-                time.sleep(random.uniform(0.3, 0.8))
+    # Queue để probe results chảy thẳng vào DB writer
+    probe_queue = Queue(maxsize=500)
+    probe_results_store = []
 
-            except Exception as e:
-                print(f"   [Error] Product {product_id} Page {page}: {e}")
-                break
-    
-    if raw_logs_reviews_list:
-        print(f"[Final Push] Pushing remaining {len(raw_logs_reviews_list)} logs...")
-        db.push_df_to_db(pd.DataFrame(raw_logs_reviews_list), "raw_reviews", schema="raw", primary_key=["spid", "page"])
-        raw_logs_reviews_list.clear()
+    def probe_and_store(task):
+        result = _fetch_one_page(task)
+        if result:
+            probe_queue.put(result)
+            probe_results_store.append(result)
+        return result
 
-# if __name__ == '__main__':
-#     fetch_reviews(batch_size = 100)
+    # Start DB writer ngay từ đầu
+    writer_thread = Thread(
+        target=util.generic_db_writer,
+        args=(probe_queue, batch_size, len(probe_tasks), "raw_reviews", ["spid", "page"]),
+        daemon=True
+    )
+    writer_thread.start()
+
+    logger.info("Probing %d products (page 1)...", len(probe_tasks))
+    util.fetch_concurrent(probe_tasks, probe_and_store, max_workers=max_workers, desc="Probing page 1")
+
+    # ── Bước 2: Build remaining tasks từ last_page ──
+    remaining_tasks = []
+    for result in probe_results_store:
+        last_page = result["raw_response"].get("paging", {}).get("last_page", 1)
+        for page in range(2, last_page + 1):
+            remaining_tasks.append({
+                "product_id": result["product_id"],
+                "spid":       result["spid"],
+                "seller_id":  result["seller_id"],
+                "page":       page,
+            })
+
+    total_tasks = len(probe_tasks) + len(remaining_tasks)
+    logger.info("Total pages to fetch: %d (probe: %d + remaining: %d)",
+                total_tasks, len(probe_tasks), len(remaining_tasks))
+
+    # ── Bước 3: Fetch remaining pages, kết quả chảy thẳng vào queue ──
+    def fetch_and_enqueue(task):
+        result = _fetch_one_page(task)
+        if result:
+            probe_queue.put(result)
+        return result
+
+    util.fetch_concurrent(
+        remaining_tasks, fetch_and_enqueue,
+        max_workers=max_workers,
+        desc="Fetching remaining review pages"
+    )
+
+    probe_queue.put(None)
+    writer_thread.join()
+    logger.info("All done.")

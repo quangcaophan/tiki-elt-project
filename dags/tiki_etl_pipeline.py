@@ -21,7 +21,7 @@ DBT_PROJECT_DIR = "/opt/airflow/dags/dbt_tiki"
 # --------------- Categories --------------- #
 
 def run_etl_category():
-    from extract_and_load.raw_catogories import ROOT_ID, fetch_categories
+    from dags.extract_and_load.raw_categories import ROOT_ID, fetch_categories
     raw_json_list = fetch_categories(ROOT_ID)
     
     if not raw_json_list:
@@ -32,16 +32,16 @@ def run_etl_category():
         df=pd.DataFrame(raw_json_list),
         table_name="raw_categories",
         schema="raw",
-        primary_key="category_id",
+        primary_key="categories_id",
     )
 
 with DAG(
     "tiki_categories_etl",
     default_args=default_args,
-    schedule_interval="@weekly",
+    schedule_interval="0 0 * * sun",
     catchup=False,
 ) as categories_dag:
-    
+
     crawl_and_load_categories_task = PythonOperator(
         task_id="crawl_tiki_categories", python_callable=run_etl_category
     )
@@ -58,12 +58,12 @@ with DAG(
 
 def run_etl_products():
     from extract_and_load.raw_products import fetch_products
-    fetch_products(batch_size=100) 
+    fetch_products(batch_size=1000) 
 
 with DAG(
     "tiki_products_etl",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule_interval="30 0 * * *",
     catchup=False,
 ) as products_dag:
     
@@ -77,7 +77,11 @@ with DAG(
         bash_command=f"cd {DBT_PROJECT_DIR} && dbt run --profiles-dir . --select products",
     )
 
-    crawl_and_load_products_task >> dbt_run_products_task
+    dbt_run_product_categories_task = BashOperator(
+        task_id="dbt_transform_product_categories",
+        bash_command=f"cd {DBT_PROJECT_DIR} && dbt run --profiles-dir . --select product_categories",
+    )
+    crawl_and_load_products_task >> dbt_run_products_task >> dbt_run_product_categories_task
 
 
 # --------------- Sellers --------------- #
@@ -89,7 +93,7 @@ def run_etl_sellers():
 with DAG(
     "tiki_seller_etl",
     default_args=default_args,
-    schedule_interval="@weekly",
+    schedule_interval="0 1 * * sun",
     catchup=False,
 ) as sellers_dag:
     
@@ -109,12 +113,12 @@ with DAG(
 
 def run_etl_reviews():
     from extract_and_load.raw_reviews import fetch_reviews
-    fetch_reviews(batch_size=100)
+    fetch_reviews(batch_size=1000)
 
 with DAG(
     "tiki_review_etl",
     default_args=default_args,
-    schedule_interval="@daily",
+    schedule_interval="30 1 * * *",
     catchup=False,
 ) as reviews_dag:
     

@@ -19,23 +19,6 @@
                 ALTER TABLE {{ this }} ADD PRIMARY KEY (spid);
             END IF;
         END $$;
-        """,
-        """
-        DO $$ BEGIN
-            IF NOT EXISTS (
-                SELECT 1 FROM pg_constraint c
-                JOIN pg_class t     ON t.oid = c.conrelid
-                JOIN pg_namespace n ON n.oid = t.relnamespace
-                WHERE c.conname   = 'fk_product_seller'
-                  AND t.relname   = 'products'
-                  AND n.nspname   = 'cleaned'
-            ) THEN
-                ALTER TABLE {{ this }}
-                ADD CONSTRAINT fk_product_seller
-                FOREIGN KEY (seller_id) REFERENCES {{ ref('sellers') }} (seller_id)
-                ON DELETE RESTRICT;
-            END IF;
-        END $$;
         """
     ]
 ) }}
@@ -70,10 +53,6 @@ WITH raw_items AS (
         extract_time
     FROM {{ source('raw', 'raw_product_listings') }},
     LATERAL jsonb_array_elements(raw_response->'data') AS item
-
-    {% if is_incremental() %}
-        WHERE extract_time > (SELECT MAX(last_updated) FROM {{ this }})
-    {% endif %}
 ),
 
 deduplicated AS (

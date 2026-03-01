@@ -23,8 +23,7 @@
         """
     ]
 ) }}
-
-SELECT
+SELECT DISTINCT ON ((r->>'id')::BIGINT)
     (r->>'id')::BIGINT                                          AS review_id,
     (r->>'product_id')::BIGINT                                  AS product_id,
     (r->>'spid')::BIGINT                                        AS spid,
@@ -34,12 +33,14 @@ SELECT
     (r->>'rating')::INT                                         AS rating,
     (r->>'title')                                               AS title,
     (r->>'content')                                             AS content,
-    to_timestamp((r->'created_by'->>'purchased_at')::BIGINT)    AS purchased_at,
+    to_timestamp(NULLIF(r->'created_by'->>'purchased_at', '')::BIGINT) AS purchased_at,
     (r->'product_attributes'->>0)                               AS variant,
     (r->>'thank_count')::INT                                    AS thank_count
 FROM {{ source('raw', 'raw_reviews') }},
 LATERAL jsonb_array_elements(raw_response->'data') AS r
-
+WHERE TRUE
 {% if is_incremental() %}
-    WHERE (r->>'id')::BIGINT NOT IN (SELECT review_id FROM {{ this }})
+    AND (r->>'id')::BIGINT NOT IN (SELECT review_id FROM {{ this }})
+    AND (r->'seller'->>'id')::INT IS NOT NULL
 {% endif %}
+ORDER BY (r->>'id')::BIGINT

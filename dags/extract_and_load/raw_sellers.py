@@ -1,67 +1,68 @@
-import pandas as pd
-import time
-import random
-from datetime import datetime
-import os 
+import os
 import sys
+import pandas as pd
+import logging
+from datetime import datetime
 
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 if root_path not in sys.path:
     sys.path.append(root_path)
-    
+
 import plugins.db as db
 import plugins.utils as util
 
-# ---------------------------------------------------------------- #
+logger = logging.getLogger(__name__)
 
 BASE_URL = "https://api.tiki.vn/product-detail/v2/widgets/seller"
+QUERY    = "SELECT DISTINCT seller_id FROM cleaned.products"
 
-query = 'select distinct seller_id from cleaned.products'
+# ---------------------------------------------------------------- #
 
-def fetch_seller():
-    raw_logs_sellers_list = [] 
-    list_store = db.query_db(query)
-    
-    total_sellers = len(list_store)
-    print(f"Total sellers to crawl: {total_sellers}")
-    
-    for index, row in list_store.iterrows(): 
-        store_id = row['seller_id']
-        print(f"[{index + 1}/{total_sellers}] Starting crawl from Seller ID: {store_id}")
-        
-        params = {'seller_id': store_id}
+def _fetch_one_seller(task: dict):
+    """Fetch info của 1 seller."""
+    seller_id     = task["seller_id"]
+    response_json = util.get_tiki_api(BASE_URL, {"seller_id": seller_id})
 
-        try:
-            response_json = util.get_tiki_api(BASE_URL, params)
+    if not response_json or not response_json.get("data"):
+        logger.warning("No data for seller %s", seller_id)
+        return None
 
-            if response_json:
-                raw_logs_sellers_list.append({
-                    "seller_id": store_id,
-                    "extract_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "raw_response": response_json
-                })
-            
-            if not response_json or not response_json.get("data"):
-                print(f"   -> Dont have data or error at Seller {store_id}")
-                continue
+    return {
+        "seller_id":    seller_id,
+        "extract_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "raw_response": response_json
+    }
 
-            if len(raw_logs_sellers_list) >= 100:
-                print(f"\n[Batch Update] Reached 100 raw logs. Pushing to DB...")
-                
-                df_raw_batch = pd.DataFrame(raw_logs_sellers_list)
-                db.push_df_to_db(df_raw_batch, "raw_sellers",schema='raw', primary_key="seller_id")
-                raw_logs_sellers_list.clear()
-                del df_raw_batch
-            
-            time.sleep(random.uniform(0.5, 1.2)) 
 
-        except Exception as e:
-            print(f"Exception Error at Seller {store_id}: {e}")
-            continue
+def fetch_seller(batch_size: int = 100, max_workers: int = 5):
+    """
+    Crawl info tất cả sellers, chạy concurrent.
+    Sellers ít hơn products/reviews nên max_workers thấp hơn để an toàn.
+    """
+    list_store = db.query_db(QUERY)  # lazy query
+    if list_store.empty:
+        logger.warning("No sellers found, aborting.")
+        return
 
-# if __name__ == '__main__':
-#     fetch_seller()
-    
-#     if raw_logs_sellers_list:
-#         print("[Final Update] Pushing remaining raw logs...")
-#         db.push_df_to_db(pd.DataFrame(raw_logs_sellers_list), "raw_sellers",schema='raw', primary_key="seller_id")
+    logger.info("Found %d sellers to crawl", len(list_store))
+
+    tasks = [{"seller_id": row["seller_id"]} for _, row in list_store.iterrows()]
+
+    all_results = util.fetch_concurrent(
+        tasks, _fetch_one_seller,
+        max_workers=max_workers,
+        desc="Fetching sellers"
+    )
+
+    logger.info("Total sellers fetched: %d / %d", len(all_results), len(tasks))
+
+    # Push theo batch
+    for i in range(0, len(all_results), batch_size):
+        batch = all_results[i : i + batch_size]
+        df = pd.DataFrame(batch)
+        db.push_df_to_db(
+            df, "raw_sellers",
+            schema="raw",
+            primary_key="seller_id"
+        )
+        logger.info("Pushed batch %d-%d / %d", i, i + len(batch), len(all_results))

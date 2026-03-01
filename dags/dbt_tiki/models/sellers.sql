@@ -37,7 +37,3 @@ WITH cte AS (
 )
 SELECT * FROM cte
 WHERE seller_id != 0
-
-{% if is_incremental() %}
-    AND extract_time > (SELECT MAX(extract_time) FROM {{ this }})
-{% endif %}

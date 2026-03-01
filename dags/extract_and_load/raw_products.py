@@ -1,78 +1,108 @@
-import os 
+import os
 import sys
-import pandas as pd
-import time
-import random
+import logging
 from datetime import datetime
+from queue import Queue
+from threading import Thread
+
 root_path = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', '..'))
 if root_path not in sys.path:
     sys.path.append(root_path)
 
 import plugins.db as db
 import plugins.utils as util
-# ---------------------------------------------------------------- #
+
+logger = logging.getLogger(__name__)
 
 BASE_URL = "https://tiki.vn/api/personalish/v1/blocks/listings"
 
-# Only crawl for Vietnamese book to reduce wait time
-specific_cate = """
+SPECIFIC_CATE_QUERY = """
 WITH RECURSIVE CategoryTree AS (
     SELECT category_id, parent_id, name, level
     FROM cleaned.categories
     WHERE name = 'Sách tiếng Việt'
-        UNION ALL
+    UNION ALL
     SELECT c.category_id, c.parent_id, c.name, c.level
     FROM cleaned.categories c
     INNER JOIN CategoryTree ct ON c.parent_id = ct.category_id
 )
-select category_id as id from categorytree
+SELECT category_id AS id FROM CategoryTree
 """
 
-def fetch_products(batch_size=50):
-    raw_logs_product_listing_list = [] 
-    categories_id = db.query_db(specific_cate)
-    total_categories = len(categories_id)
-    
-    for index, row in categories_id.iterrows(): 
-        cat_id = row['id']
-        print(f"[{index + 1}/{total_categories}] Crawling Category ID: {cat_id}")
-        
-        page = 1
-        while True:
-            params = {"sort": "top_seller", "page": page, "category": cat_id}
-            try:
-                response_json = util.get_tiki_api(BASE_URL, params)
+# ---------------------------------------------------------------- #
 
-                if not response_json or not response_json.get("data") or len(response_json.get("data")) == 0:
-                    break
+def _fetch_one_page(task: dict):
+    params = {"sort": "top_seller", "page": task["page"], "category": task["category_id"]}
+    response_json = util.get_tiki_api(BASE_URL, params)
+    if not response_json or not response_json.get("data"):
+        return None
+    return {
+        "category_id":  task["category_id"],
+        "page":         task["page"],
+        "extract_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
+        "raw_response": response_json
+    }
 
-                raw_logs_product_listing_list.append({
-                    "category_id": cat_id,
-                    "page": page,
-                    "extract_time": datetime.now().strftime("%Y-%m-%d %H:%M:%S"),
-                    "raw_response": response_json
-                })
+def fetch_products(batch_size: int = 200, max_workers: int = 5):
+    """
+    Crawl products với producer-consumer pattern.
+    Kết quả được push DB liên tục thay vì tích lũy hết trong RAM.
+    """
+    categories_id = db.query_db(SPECIFIC_CATE_QUERY)
+    if categories_id.empty:
+        logger.warning("No categories found, aborting.")
+        return
 
-                print(f"   Scraped page {page} ({len(response_json.get('data'))} items)")
+    logger.info("Found %d categories to crawl", len(categories_id))
 
-                if len(raw_logs_product_listing_list) >= batch_size:
-                    print(f"   [Batch Push] Pushing {len(raw_logs_product_listing_list)} logs to DB...")
-                    df_to_push = pd.DataFrame(raw_logs_product_listing_list)
-                    db.push_df_to_db(df_to_push, "raw_product_listings", schema="raw", primary_key=["category_id", "page"])
-                    raw_logs_product_listing_list.clear()
-                    del df_to_push
+    result_queue = Queue(maxsize=500)
 
-                page += 1
-                time.sleep(random.uniform(0.3, 0.8))
+    # Start DB writer thread
+    writer_thread = Thread(
+        target=util.generic_db_writer,
+        args=(result_queue, batch_size, len(categories_id), "raw_product_listings", ["category_id", "page"]),
+        daemon=True
+    )
+    writer_thread.start()
 
-            except Exception as e:
-                print(f"   [Error] Cat {cat_id} Page {page}: {e}")
-                break
-    
-    if raw_logs_product_listing_list:
-        print(f"[Final Push] Pushing remaining {len(raw_logs_product_listing_list)} logs...")
-        db.push_df_to_db(pd.DataFrame(raw_logs_product_listing_list), "raw_product_listings", schema="raw", primary_key=["category_id", "page"])
-        raw_logs_product_listing_list.clear()
+    # ── Probe page 1 để biết total pages ──
+    probe_tasks = [
+        {"category_id": row["id"], "page": 1}
+        for _, row in categories_id.iterrows()
+    ]
+    probe_results_store = []
 
-# if __name__ == '__main__':
-#     fetch_products(batch_size = 100)
+    def probe_and_enqueue(task):
+        result = _fetch_one_page(task)
+        if result:
+            result_queue.put(result)
+            probe_results_store.append(result)
+        return result
+
+    util.fetch_concurrent(probe_tasks, probe_and_enqueue, max_workers=max_workers, desc="Probing page 1")
+
+    # ── Build remaining tasks ──
+    remaining_tasks = []
+    for result in probe_results_store:
+        last_page = result["raw_response"].get("paging", {}).get("last_page", 1)
+        for page in range(2, last_page + 1):
+            remaining_tasks.append({"category_id": result["category_id"], "page": page})
+
+    logger.info("Probe done. %d additional pages to fetch", len(remaining_tasks))
+
+    # ── Fetch remaining, kết quả chảy thẳng vào queue ──
+    def fetch_and_enqueue(task):
+        result = _fetch_one_page(task)
+        if result:
+            result_queue.put(result)
+        return result
+
+    util.fetch_concurrent(
+        remaining_tasks, fetch_and_enqueue,
+        max_workers=max_workers,
+        desc="Fetching remaining pages"
+    )
+
+    result_queue.put(None)  # poison pill
+    writer_thread.join()
+    logger.info("All done.")
