@@ -7,3 +7,4 @@ apache-airflow-providers-postgres
 dbt-postgres
 dbt-core
 streamlit
+protobuf=3.20.3

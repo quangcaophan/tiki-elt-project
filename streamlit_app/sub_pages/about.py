@@ -286,60 +286,13 @@ erDiagram
             """
         )
 
-    # ── 5. Recommendation Engine ──────────────────────────────────────────────
-    st.header("5. Recommendation Engine  *(Planned)*")
-
-    tab_cbf, tab_cf = st.tabs(["📄 Content-Based Filtering", "👥 Collaborative Filtering"])
-
-    with tab_cbf:
-        st.markdown(
-            """
-            Product titles and descriptions are tokenised after stopword removal.
-            **TF-IDF** vectors are built per product and pairwise **cosine similarity**
-            is used to rank candidates.
-
-            A search query goes through the same vectorisation step so it can be
-            compared directly against the product index.
-            """
-        )
-        st.markdown("**TF-IDF formulas:**")
-        st.latex(r"TF(t,d) = \frac{f_{t,d}}{\sum_{t' \in d} f_{t',d}}")
-        st.latex(r"IDF(t)   = \log\!\left(\frac{N}{1 + DF(t)}\right)")
-        st.latex(r"TF\text{-}IDF(t,d) = TF(t,d) \times IDF(t)")
-
-    with tab_cf:
-        st.markdown(
-            """
-            **ALS (Alternating Least Squares)** in PySpark will be trained on the
-            `(user_id, spid, rating)` triples from the `cleaned.reviews` table.
-            ALS handles sparse implicit feedback well and scales to the full dataset
-            with Spark's distributed execution.
-            """
-        )
-        st.code(
-            """
-from pyspark.ml.recommendation import ALS
-
-als = ALS(
-    userCol           = "user_id",
-    itemCol           = "spid",
-    ratingCol         = "rating",
-    coldStartStrategy = "drop",
-    rank              = 10,
-    maxIter           = 10,
-)
-model = als.fit(reviews_df)
-            """,
-            language="python",
-        )
-
     # ── 6. Source Code ────────────────────────────────────────────────────────
     st.divider()
     st.markdown(
         """
         ### 🔗 Source Code
         Full source on GitHub →
-        [**nchn471/tiki-recommender-etl-pipeline**](https://github.com/nchn471/tiki-recommender-etl-pipeline)
+        [**tiki-elt-project**](https://github.com/quangcaophan/tiki-elt-project)
         """,
         unsafe_allow_html=False,
     )
