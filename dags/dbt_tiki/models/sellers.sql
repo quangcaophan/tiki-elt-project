@@ -1,23 +1,7 @@
 {{ config(
     materialized='incremental',
     unique_key='seller_id',
-    on_schema_change='sync_all_columns',
-    post_hook=[
-        """
-        DO $$ BEGIN
-            IF NOT EXISTS (
-                SELECT 1 FROM pg_constraint c
-                JOIN pg_class t     ON t.oid = c.conrelid
-                JOIN pg_namespace n ON n.oid = t.relnamespace
-                WHERE c.contype = 'p'
-                  AND t.relname  = 'sellers'
-                  AND n.nspname  = 'cleaned'
-            ) THEN
-                ALTER TABLE {{ this }} ADD PRIMARY KEY (seller_id);
-            END IF;
-        END $$;
-        """
-    ]
+    on_schema_change='sync_all_columns'
 ) }}
 
 WITH cte AS (
@@ -34,6 +18,7 @@ WITH cte AS (
         (raw_response->'data'->'seller'->>'days_since_joined')::INTEGER     AS days_since_joined,
         extract_time
     FROM {{ source('raw', 'raw_sellers') }}
+    WHERE extract_time >= current_date
 )
 SELECT * FROM cte
 WHERE seller_id != 0

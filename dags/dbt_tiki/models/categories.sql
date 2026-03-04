@@ -1,24 +1,7 @@
 {{ config(
     materialized='incremental',
     unique_key='category_id',
-    on_schema_change='sync_all_columns',
-    pre_hook="ALTER TABLE IF EXISTS {{ this }} DROP CONSTRAINT IF EXISTS fk_category_parent",
-    post_hook=[
-        """
-        DO $$ BEGIN
-            IF NOT EXISTS (
-                SELECT 1 FROM pg_constraint c
-                JOIN pg_class t     ON t.oid = c.conrelid
-                JOIN pg_namespace n ON n.oid = t.relnamespace
-                WHERE c.contype = 'p'
-                  AND t.relname  = 'categories'
-                  AND n.nspname  = 'cleaned'
-            ) THEN
-                ALTER TABLE {{ this }} ADD PRIMARY KEY (category_id);
-            END IF;
-        END $$;
-        """
-    ]
+    on_schema_change='sync_all_columns'
 ) }}
 
 SELECT

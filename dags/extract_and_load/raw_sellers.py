@@ -34,7 +34,7 @@ def _fetch_one_seller(task: dict):
     }
 
 
-def fetch_seller(batch_size: int = 100, max_workers: int = 5):
+def fetch_seller(batch_size: int = 1000, max_workers: int = 5):
     """
     Crawl info tất cả sellers, chạy concurrent.
     Sellers ít hơn products/reviews nên max_workers thấp hơn để an toàn.

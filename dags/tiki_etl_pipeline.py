@@ -76,12 +76,7 @@ with DAG(
         task_id="dbt_transform_produtcts",
         bash_command=f"cd {DBT_PROJECT_DIR} && dbt run --profiles-dir . --select products",
     )
-
-    dbt_run_product_categories_task = BashOperator(
-        task_id="dbt_transform_product_categories",
-        bash_command=f"cd {DBT_PROJECT_DIR} && dbt run --profiles-dir . --select product_categories",
-    )
-    crawl_and_load_products_task >> dbt_run_products_task >> dbt_run_product_categories_task
+    crawl_and_load_products_task >> dbt_run_products_task
 
 
 # --------------- Sellers --------------- #

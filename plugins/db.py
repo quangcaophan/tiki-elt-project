@@ -35,7 +35,10 @@ engine = get_engine(DB_CONFIG)
 def query_db(sql):
     try:
         with engine.connect() as conn:
-            return pd.read_sql(sql, conn)
+            result = conn.execute(text(sql))
+            cols = result.keys()
+            data = [dict(zip(cols, row)) for row in result.fetchall()]
+            return pd.DataFrame(data)
     except Exception as e:
         print(f"[DB Error] Querying: {e}")
         return pd.DataFrame()
@@ -59,7 +62,6 @@ def push_df_to_db(df, table_name, schema="raw", primary_key="id"):
     # 2. Tự động Migration (Thêm cột/Tạo bảng)
     try:
         with engine.begin() as conn:
-            # Kiểm tra cột trong bảng cụ thể của schema
             existing_cols_query = text("""
                 SELECT column_name 
                 FROM information_schema.columns 
@@ -70,7 +72,6 @@ def push_df_to_db(df, table_name, schema="raw", primary_key="id"):
             existing_cols = [row[0] for row in result.fetchall()]
 
             if not existing_cols:
-                # Nếu bảng chưa có, dùng to_sql để tạo nhanh (với schema)
                 df_processed.head(0).to_sql(
                     table_name, engine, schema=schema, if_exists="append", index=False
                 )

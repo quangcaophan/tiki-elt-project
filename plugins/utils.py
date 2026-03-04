@@ -1,5 +1,4 @@
-from multiprocessing import Queue
-from queue import Empty
+from queue import Queue, Empty  # ← was wrongly importing from multiprocessing
 import time
 import random
 import logging
@@ -14,7 +13,11 @@ from plugins import db
 logger = logging.getLogger(__name__)
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36"
+    "User-Agent": (
+        "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) "
+        "AppleWebKit/537.36 (KHTML, like Gecko) "
+        "Chrome/119.0.0.0 Safari/537.36"
+    )
 }
 
 # ---------------------------------------------------------------- #
@@ -68,12 +71,10 @@ def get_tiki_api(url: str, params: dict, retries: int = 4) -> Optional[dict]:
                     time.sleep(wait)
                     continue
 
-                # ── Normal success ──
                 if response.status_code == 200:
                     try:
                         return response.json()
                     except ValueError:
-                        # body không phải JSON hợp lệ dù status 200
                         wait = (2 ** attempt) + random.uniform(1, 2)
                         logger.warning(
                             "Invalid JSON body. Waiting %.1fs (attempt %d/%d) — %s",
@@ -82,7 +83,6 @@ def get_tiki_api(url: str, params: dict, retries: int = 4) -> Optional[dict]:
                         time.sleep(wait)
                         continue
 
-                # ── Hard rate limit ──
                 if response.status_code == 429:
                     wait = (2 ** attempt) * 2 + random.uniform(2, 5)
                     logger.warning(
@@ -92,7 +92,6 @@ def get_tiki_api(url: str, params: dict, retries: int = 4) -> Optional[dict]:
                     time.sleep(wait)
                     continue
 
-                # ── Bị block tạm thời ──
                 if response.status_code in (403, 503):
                     wait = (2 ** attempt) * 3 + random.uniform(3, 8)
                     logger.warning(
@@ -108,7 +107,7 @@ def get_tiki_api(url: str, params: dict, retries: int = 4) -> Optional[dict]:
             except requests.exceptions.TooManyRedirects:
                 wait = (2 ** attempt) * 3 + random.uniform(5, 10)
                 logger.warning(
-                    "Too many redirects (block/captcha). Waiting %.1fs (attempt %d/%d) — %s",
+                    "Too many redirects. Waiting %.1fs (attempt %d/%d) — %s",
                     wait, attempt + 1, retries, params
                 )
                 time.sleep(wait)
@@ -141,9 +140,23 @@ def fetch_concurrent(
     tasks: List[dict],
     fetch_fn,
     max_workers: int = 5,
-    desc: str = "Fetching"
+    desc: str = "Fetching",
+    accumulate: bool = True,   # ← set False when fetch_fn already pushes to a queue
 ) -> List:
-    results = []
+    """
+    Run fetch_fn over tasks concurrently.
+
+    Parameters
+    ----------
+    accumulate : bool
+        When True (default) results are collected and returned as a list — suitable
+        for small result sets (e.g. categories, sellers, probe-page-1 results).
+
+        Set to False for high-volume fetches where fetch_fn pushes results directly
+        into a Queue/DB.  This avoids accumulating tens of thousands of large JSON
+        blobs in memory, which previously caused OOM (SIGKILL / return code -9).
+    """
+    results = [] if accumulate else None
     total   = len(tasks)
 
     with ThreadPoolExecutor(max_workers=max_workers) as executor:
@@ -155,18 +168,24 @@ def fetch_concurrent(
             task = future_to_task[future]
             try:
                 result = future.result()
-                if result is not None:
+                if accumulate and result is not None:
                     results.append(result)
                 if i % 50 == 0 or i == total:
                     logger.info("%s: %d/%d done", desc, i, total)
             except Exception as e:
                 logger.error("Task %s failed: %s", task, e)
 
-    return results
+    return results if accumulate else []
 
 
-def generic_db_writer(queue: Queue, batch_size: int, total_tasks: int, table_name: str, primary_key: List[str]):
-    """Thread riêng push DB theo batch, chạy song song với fetcher."""
+def generic_db_writer(
+    queue: Queue,
+    batch_size: int,
+    total_tasks: int,
+    table_name: str,
+    primary_key: List[str],
+):
+    """Thread that drains a Queue and pushes rows to the DB in batches."""
     buffer = []
     pushed = 0
 
@@ -176,7 +195,7 @@ def generic_db_writer(queue: Queue, batch_size: int, total_tasks: int, table_nam
         except Empty:
             break
 
-        if item is None:  # poison pill
+        if item is None:   # poison pill
             break
 
         buffer.append(item)
@@ -185,7 +204,7 @@ def generic_db_writer(queue: Queue, batch_size: int, total_tasks: int, table_nam
             df = pd.DataFrame(buffer)
             db.push_df_to_db(df, table_name, schema="raw", primary_key=primary_key)
             pushed += len(buffer)
-            logger.info("DB writer pushed %d/ %d records", pushed, total_tasks)
+            logger.info("DB writer pushed %d / %d records", pushed, total_tasks)
             buffer.clear()
 
     if buffer:

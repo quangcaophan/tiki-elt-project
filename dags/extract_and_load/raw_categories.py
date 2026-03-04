@@ -13,7 +13,7 @@ import plugins.utils as util
 logger = logging.getLogger(__name__)
 
 BASE_URL = "https://tiki.vn/api/v2/categories"
-ROOT_ID  = "8322"
+ROOT_ID  = "1"
 
 # ---------------------------------------------------------------- #
 

@@ -1,26 +1,7 @@
 {{ config(
     materialized='incremental',
     unique_key='spid',
-    on_schema_change='sync_all_columns',
-    pre_hook=[
-        "ALTER TABLE IF EXISTS {{ this }} DROP CONSTRAINT IF EXISTS fk_product_seller"
-    ],
-    post_hook=[
-        """
-        DO $$ BEGIN
-            IF NOT EXISTS (
-                SELECT 1 FROM pg_constraint c
-                JOIN pg_class t     ON t.oid = c.conrelid
-                JOIN pg_namespace n ON n.oid = t.relnamespace
-                WHERE c.contype = 'p'
-                  AND t.relname  = 'products'
-                  AND n.nspname  = 'cleaned'
-            ) THEN
-                ALTER TABLE {{ this }} ADD PRIMARY KEY (spid);
-            END IF;
-        END $$;
-        """
-    ]
+    on_schema_change='sync_all_columns'
 ) }}
 
 WITH raw_items AS (
@@ -30,6 +11,7 @@ WITH raw_items AS (
         item->>'name'                                                                   AS name,
         (item->>'sku')::BIGINT                                                          AS sku,
         (item->'seller_id')::BIGINT                                                     AS seller_id,
+        category_id                                                                     AS category_id,
         item->>'url_key'                                                                AS url_key,
         item->>'url_path'                                                               AS url_path,
         item->>'short_description'                                                      AS short_description,
@@ -51,8 +33,10 @@ WITH raw_items AS (
         NULL::TEXT                                                                      AS meta_description,
         CURRENT_TIMESTAMP                                                               AS last_updated,
         extract_time
-    FROM {{ source('raw', 'raw_product_listings') }},
+    FROM raw.raw_product_listings,
     LATERAL jsonb_array_elements(raw_response->'data') AS item
+    WHERE (item->'visible_impression_info'->'amplitude'->>'all_time_quantity_sold')::INT > 0
+    AND extract_time >= current_date
 ),
 
 deduplicated AS (
@@ -66,7 +50,7 @@ deduplicated AS (
 )
 
 SELECT
-    product_id, spid, name, sku, seller_id,
+    product_id, spid, name, sku, seller_id, category_id,
     url_key, url_path, short_description,
     price, list_price, original_price, discount, discount_rate,
     rating_average, review_count, order_count, favourite_count,
