@@ -88,7 +88,7 @@ def run_etl_sellers():
 with DAG(
     "tiki_seller_etl",
     default_args=default_args,
-    schedule_interval="0 1 * * sun",
+    schedule_interval="30 1 * * sun",
     catchup=False,
 ) as sellers_dag:
     
@@ -113,7 +113,7 @@ def run_etl_reviews():
 with DAG(
     "tiki_review_etl",
     default_args=default_args,
-    schedule_interval="30 1 * * *",
+    schedule_interval="0 2 * * *",
     catchup=False,
 ) as reviews_dag:
     
